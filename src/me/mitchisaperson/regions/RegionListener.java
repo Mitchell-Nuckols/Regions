@@ -17,11 +17,20 @@ public class RegionListener implements Listener
 		if(rm.isPlayerInRegion(e.getPlayer())) e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 1800, 1));
 		
 		if(!rm.isLocationInRegion(e.getFrom()) && rm.isLocationInRegion(e.getTo())) Bukkit.getServer().getPluginManager().callEvent(new PlayerEnterRegionEvent(e.getPlayer(), rm.getRegion(e.getTo())));
+		if(!rm.isLocationInRegion(e.getTo()) && rm.isLocationInRegion(e.getFrom())) Bukkit.getServer().getPluginManager().callEvent(new PlayerExitRegionEvent(e.getPlayer(), rm.getRegion(e.getFrom())));
 	}
 	
 	@EventHandler
 	public void onPlayerEnterRegion(PlayerEnterRegionEvent e)
 	{
 		e.getPlayer().sendMessage("You entered a region!");
+		e.getRegion().addPlayer(e.getPlayer());
+	}
+	
+	@EventHandler
+	public void onPlayerExitRegion(PlayerExitRegionEvent e)
+	{
+		e.getPlayer().sendMessage("You exited a region!");
+		e.getRegion().removePlayer(e.getPlayer());
 	}
 }

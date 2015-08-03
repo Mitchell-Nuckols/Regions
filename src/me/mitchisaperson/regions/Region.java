@@ -1,12 +1,18 @@
 package me.mitchisaperson.regions;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.entity.Player;
 
 public class Region
 {
 	public int id;
 	private int x1, z1, x2, z2;
-	String name;
+	private String name;
+	
+	private List<Player> players = new ArrayList<Player>();
 	
 	public Region(int id, int sx, int sz, int ex, int ez, String name)
 	{
@@ -36,4 +42,14 @@ public class Region
 	}
 	
 	public void setName(String n) {name = n;}
+	
+	public void addPlayer(Player p) {players.add(p);}
+	public void removePlayer(Player p) {players.remove(p);}
+	
+	public boolean containsPlayer(Player p)
+	{
+		return players.contains(p);
+	}
+	
+	public List<Player> getPlayers() {return players;}
 }

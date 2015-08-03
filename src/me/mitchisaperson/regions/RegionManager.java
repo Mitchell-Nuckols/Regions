@@ -32,40 +32,26 @@ public class RegionManager
 		return id;
 	}
 	
+	public Region getRegion(int id)
+	{
+		for(Region r : regions)
+		{
+			if(r.getId() == id) return r;
+		}
+		
+		return null;
+	}
+	
 	public Region getRegion(Player player)
 	{
-		int sx, sz, ex, ez;
-		
-		for(Region region: regions)
+		for(Region r : regions)
 		{
-		if(region.pos1().x >= region.pos2().x)
-		{
-			sx = region.pos1().x;
-			sz = region.pos1().y;
-			
-			ex = region.pos2().x;
-			ez = region.pos2().y;
-		}else
-		{
-			sx = region.pos2().x;
-			sz = region.pos2().y;
-			
-			ex = region.pos1().x;
-			ez = region.pos1().y;
-		}
-		
-		int x = sx - ex;
-		int z = sz - ez;
-		
-		for(int i = sx; i > ex; i--)
-		{
-			for(int j = sz; j > ez; j--)
+			for(Player p : r.getPlayers())
 			{
-				if(player.getLocation().getBlockX() == i && player.getLocation().getBlockZ() == j) return region;
+				if(p == player) return r;
 			}
 		}
-		}
-			
+		
 		return null;
 	}
 	
@@ -145,33 +131,9 @@ public class RegionManager
 	
 	public boolean isPlayerInRegion(Player player, Region region)
 	{
-		int sx, sz, ex, ez;
-		
-		if(region.pos1().x >= region.pos2().x)
+		for(Player p : region.getPlayers())
 		{
-			sx = region.pos1().x;
-			sz = region.pos1().y;
-			
-			ex = region.pos2().x;
-			ez = region.pos2().y;
-		}else
-		{
-			sx = region.pos2().x;
-			sz = region.pos2().y;
-			
-			ex = region.pos1().x;
-			ez = region.pos1().y;
-		}
-		
-		int x = sx - ex;
-		int z = sz - ez;
-		
-		for(int i = sx; i > ex; i--)
-		{
-			for(int j = sz; j > ez; j--)
-			{
-				if(player.getLocation().getBlockX() == i && player.getLocation().getBlockZ() == j) return true;
-			}
+			if(p == player) return true;
 		}
 			
 		return false;
@@ -179,36 +141,12 @@ public class RegionManager
 	
 	public boolean isPlayerInRegion(Player player)
 	{
-		int sx, sz, ex, ez;
-		
-		for(Region region: regions)
+		for(Region r : regions)
 		{
-		if(region.pos1().x >= region.pos2().x)
-		{
-			sx = region.pos1().x;
-			sz = region.pos1().y;
-			
-			ex = region.pos2().x;
-			ez = region.pos2().y;
-		}else
-		{
-			sx = region.pos2().x;
-			sz = region.pos2().y;
-			
-			ex = region.pos1().x;
-			ez = region.pos1().y;
-		}
-		
-		int x = sx - ex;
-		int z = sz - ez;
-		
-		for(int i = sx; i > ex; i--)
-		{
-			for(int j = sz; j > ez; j--)
+			for(Player p : r.getPlayers())
 			{
-				if(player.getLocation().getBlockX() == i && player.getLocation().getBlockZ() == j) return true;
+				if(p == player) return true;
 			}
-		}
 		}
 			
 		return false;
