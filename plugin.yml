@@ -1,0 +1,7 @@
+name: Regions
+main: me.mitchisaperson.regions.Plugin
+description: Bukkit plugin for regions
+version: 0.1
+commands:
+    rg:
+        description: Regions command
